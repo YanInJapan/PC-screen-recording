@@ -1,0 +1,35 @@
+"""
+Reference wbsite: https://www.geeksforgeeks.org/create-a-screen-recorder-using-python/
+"""
+####################################################################################
+# Please type correct filename route and screen resolution
+#　Run this cod to start recording. Press Esc button to finish recording
+
+filename = "C:\\Users\\318-yan\\Desktop\\Recording.mp4"#EX："C:\\Users\\318-yan\\Desktop\\Recording.mp4"
+resolution = (1920, 1080)
+
+#fps changes with each PC's process speed
+#Please change fps according your PC
+fps = 12.0
+####################################################################################
+
+import pyautogui
+import cv2
+import numpy as np
+import keyboard as kb 
+
+
+codec = cv2.VideoWriter_fourcc(*'mp4v')
+out = cv2.VideoWriter(filename, codec, fps, resolution)
+ 
+while True:
+ 
+    if kb.is_pressed('Esc'):
+        out.release()
+        cv2.destroyAllWindows()
+        break
+    else:
+        img = pyautogui.screenshot()
+        frame = np.array(img)
+        frame = cv2.cvtColor(frame, cv2.COLOR_BGR2RGB)
+        out.write(frame)
